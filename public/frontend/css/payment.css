@@ -1,0 +1,35 @@
+.money-show-payment p {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.payment-description {
+    color: white;
+}
+
+.payment-information {
+    background-color: #f0f0f0;
+}
+
+.tienmat {
+    padding: 5px;
+    border: 1px solid white;
+    align-items: center;
+    background-color: unset;
+    color: white;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.form-check-input:checked {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+@media (max-width: 768px) {
+    .col-6 {
+        width: 100%;
+    }
+}

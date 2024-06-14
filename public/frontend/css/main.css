@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&family=Rubik+Doodle+Shadow&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-family: "Open Sans", sans-serif;
+}
+
+.sidebar .tittle-main {
+    font-size: 1.2rem;
+}
+
+.navbar {
+    border-bottom: 1px solid #dfdfe3;
+}
+
+.navbar-main {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-pills {
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 1px solid #dfdfe3;
+}
+
+h5.card-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.productNameOrder {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.card-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.card-img-top {
+    transition: transform 0.5s ease;
+    display: block;
+    width: 100%;
+    object-fit: cover;
+}
+
+.card-img-top:hover {
+    transform: scale(1.1);
+    /* Phóng to hình ảnh khi hover */
+}
+
+.money-show p {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.money-show {
+    background-color: #f5f7f9;
+}
+
+.products {
+    background-color: #f5f7f9;
+}
+
+.money {
+    position: absolute;
+    bottom: 20px;
+    width: -webkit-fill-available;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+}
+
+.products button {
+    --bs-btn-padding-y: 0.25rem;
+    --bs-btn-padding-x: 0.5rem;
+    --bs-btn-font-size: 0.75rem;
+}
+
+.products .products-show p {
+    margin-bottom: unset;
+}
+
+button.increase-quantity.btn.btn-outline-success {
+    --bs-btn-hover-color: unset;
+    --bs-btn-hover-bg: unset;
+    --bs-btn-border-color: unset;
+    margin-bottom: 7px;
+    height: 20px;
+    font-size: 0.1rem;
+    background-color: #198754;
+    color: white;
+}
+
+button.decrease-quantity.btn.btn-outline-success {
+    --bs-btn-hover-color: unset;
+    --bs-btn-hover-bg: unset;
+    --bs-btn-border-color: unset;
+    color: #878787;
+    height: 20px;
+    font-size: 0.1rem;
+    background-color: #878787;
+    color: white;
+}
+
+.products-show-noti {
+    display: flex;
+    justify-content: center;
+}

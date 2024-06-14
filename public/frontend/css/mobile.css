@@ -1,0 +1,72 @@
+@media (min-width: 576px) {
+}
+
+@media (max-width: 1500px) {
+    .voucher .voucher-x.col-8 {
+        max-width: 65%;
+    }
+
+    .voucher .voucher-confirm.col-4 {
+        min-width: 35%;
+    }
+
+    .voucher {
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 768px) {
+    .products-option.col {
+        width: 50%;
+    }
+
+    .restaurant.col {
+        width: 50%;
+    }
+
+    div#navbarText {
+        display: flex;
+    }
+
+    a.flex-sm-fill.text-sm-center.nav-link.active {
+        width: 50%;
+        display: none;
+    }
+
+    .navigation {
+        display: flex;
+    }
+
+    .products-show-col {
+        z-index: 2;
+        background-color: white;
+    }
+
+    .sidebar-mobile {
+        display: block;
+    }
+
+    h5.card-title {
+        font-size: 17px;
+    }
+
+    /* p.card-text {
+        font-size: 14px;
+    } */
+
+    .toast-container.position-fixed.bottom-0.start-0.p-3 {
+        top: 10% !important;
+        bottom: unset;
+        z-index: 50;
+    }
+}
+
+@media (min-width: 768px) {
+    .navigation {
+        display: none;
+    }
+
+    .sidebar-mobile {
+        display: none;
+    }
+}
