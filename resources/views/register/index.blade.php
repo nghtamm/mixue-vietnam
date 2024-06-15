@@ -171,9 +171,9 @@
                                         </span>
                                     </div>
                                 </div>
-                                {{-- <div class="cf-turnstile text-center"
+                                <div class="cf-turnstile text-center"
                                     data-sitekey="{{ config('services.turnstile.site') }}"></div>
-                                <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script> --}}
+                                <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
                             </div>
                             <div class="ps-3 pe-3 mb-3" style="text-align: center;">
                                 <input type="submit" class="btn btn-success" id="submitBtn" style="width:50%"

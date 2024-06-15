@@ -24,7 +24,7 @@ class RegisterController extends Controller
                 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).*$/',
             ],
             'user_gender' => 'required|in:male,female',
-            // 'cf-turnstile-response' => ['required', new Turnstile()],
+            'cf-turnstile-response' => ['required', new Turnstile()],
         ], [
             'user_name.required' => 'Tên là trường bắt buộc.',
             'user_name.regex' => 'Họ và tên của bạn không được nhập số.',
