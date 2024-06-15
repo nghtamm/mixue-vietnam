@@ -124,11 +124,11 @@ class PaymentController extends Controller
         // Kiểm tra nếu chatId tồn tại
         if ($chatId) {
             $order->load('orderDetails');
-            Notification::route('telegram', $chatId)
-                ->notify(new OrderNotification($order, $chatId));
+            // Notification::route('telegram', $chatId)
+            //     ->notify(new OrderNotification($order, $chatId));
             // Gửi job vào hàng đợi với độ trễ 10 phút
-            CancelUnacceptedOrder::dispatch($order->id)->delay(now()->addMinutes(10));
-            Log::channel('slack')->info("Bạn có 1 đơn hàng mới");
+            // CancelUnacceptedOrder::dispatch($order->id)->delay(now()->addMinutes(10));
+            // Log::channel('slack')->info("Bạn có 1 đơn hàng mới");
             // dd($order, $chatId);
         }
 
