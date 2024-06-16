@@ -9,8 +9,17 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: flex; gap:20px">
+                    <li class="nav-item" style="cursor: pointer;">
+                        <span><a style="text-decoration: none; color: #333" href="{{ route('gioi_thieu') }}">
+                                Giới thiệu
+                            </a>
+                        </span>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer;">
+                        <span><a style="text-decoration: none; color: #333" href="{{ route('lien_he') }}">
+                                Liên hệ</span>
+                        </a>
                     </li>
                 </ul>
                 <div class="dropdown">

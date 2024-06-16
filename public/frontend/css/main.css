@@ -22,6 +22,17 @@
     z-index: 100;
 }
 
+.home {
+    padding: 0 24px;
+}
+
+.rest_container {
+    display: grid;
+    gap: 20px;
+    /* chia 3 cột */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
 .nav-pills {
     font-weight: 600;
     text-transform: uppercase;

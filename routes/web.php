@@ -106,3 +106,11 @@ Route::post('/logout', function () {
     Auth::logout();
     return redirect('/');
 })->name('logout');
+
+Route::get('/lien_he', function () {
+    return view('pages.contact');
+})->name('lien_he');
+
+Route::get('/gioi_thieu', function () {
+    return view('pages.intro');
+})->name('gioi_thieu');
