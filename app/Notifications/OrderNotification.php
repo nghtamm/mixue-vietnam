@@ -87,15 +87,15 @@ class OrderNotification extends Notification implements ShouldQueue
 
     public function toTelegram($notifiable)
     {
-        $coordinates = $this->getAddressCoordinates($this->order->order_address);
+        // $coordinates = $this->getAddressCoordinates($this->order->order_address);
         // dd($coordinates);
         $messageText = $this->createMessageText();
 
         // Thêm liên kết tới Google Maps với tọa độ
-        $locationUrl = "https://www.google.com/maps/search/?api=1&query={$coordinates->latitude},{$coordinates->longitude}";
-        $messageText .= "\nXem Vị Trí: [Xem Trên Bản Đồ]($locationUrl)";
+        // $locationUrl = "https://www.google.com/maps/search/?api=1&query={$coordinates->latitude},{$coordinates->longitude}";
+        // $messageText .= "\nXem Vị Trí: [Xem Trên Bản Đồ]($locationUrl)";
 
-        Log::channel('slack')->info($locationUrl);
+        // Log::channel('slack')->info($locationUrl);
         // Gửi thông báo văn bản với liên kết tới vị trí
         $telegramMessage = TelegramMessage::create()
             ->to($this->chatId)

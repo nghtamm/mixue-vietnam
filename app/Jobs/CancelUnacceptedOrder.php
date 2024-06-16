@@ -50,7 +50,7 @@ class CancelUnacceptedOrder implements ShouldQueue
             $order->total_price,
             $order->restaurant->restaurant_name,
             $order->bill_status,
-            $order->staff->name
+            $order->staff->name ?? "Mixue"
         ));
     }
 }
