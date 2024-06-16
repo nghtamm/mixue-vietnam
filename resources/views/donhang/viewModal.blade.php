@@ -34,7 +34,7 @@
                                 <div class="mb-3">
                                     <label for="shipping" class="form-label">Phí giao hàng</label>
                                     <input type="text" class="form-control" id="shipping"
-                                        style="background-color:#e1e1e1" value="@currency($data->shipping->shipping_fee)" readonly>
+                                        style="background-color:#e1e1e1" value="@currency($data->shipping->shipping_fee ?? 0)" readonly>
                                 </div>
                             </div>
                             <div class="col-md">

@@ -15,8 +15,20 @@
     <div id="carouselExampleIndicators" class="carousel slide">
         <div id="carouselExample" class="carousel slide">
             <div class="carousel-inner">
-                <div class="carousel-item active">
+                {{-- <div class="carousel-item active">
                     <img src="{{ asset('frontend\images\bannerhome1.png') }}" class="d-block w-100" alt="...">
+                </div> --}}
+                {{-- <div class="carousel-item active">
+                    <img src="{{ asset('frontend\images\banner2.png') }}" class="d-block w-100" alt="...">
+                </div> --}}
+                <div class="carousel-item active">
+                    <img src="{{ asset('frontend\images\banner3.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('frontend\images\banner4.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('frontend\images\banner5.png') }}" class="d-block w-100" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -29,14 +41,14 @@
             </button>
         </div>
     </div>
-    <div class="container mt-3 mb-3">
+    <div class="mt-3 mb-3">
         <div class="home">
             @if (session('login_error'))
                 <div class="alert alert-danger" role="alert">
                     {{ session('login_error') }}
                 </div>
             @endif
-            <div class="row row-cols-1 row-cols-md-6 g-2">
+            <div class="rest_container">
                 @foreach ($restaurant as $r)
                     <div class="restaurant col" style="margin-bottom: var(--bs-gutter-y);">
                         <div class="card" style="overflow: hidden;">

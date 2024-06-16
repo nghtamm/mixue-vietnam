@@ -136,6 +136,7 @@
                                             <select class="form-select" id="specific-time-option"
                                                 name="specific-time-option" aria-label="Default select example"
                                                 placeholder="Thời gian cụ thể">
+                                                <option selected></option>
                                                 <option value="1">8.00</option>
                                                 <option value="2">9.00</option>
                                             </select>
@@ -456,7 +457,13 @@
                     type: 'POST',
                     data: formData,
                     success: function(response) {
-                        window.location.href = response.redirectURL;
+                        if (order_payment == '1') {
+                            window.location.href = response.vnp_Url;
+                            console.log(JSON.stringify(response));
+                        }
+                        else {
+                            window.location.href = response.redirectURL;
+                        }
                         // console.log(response.redirectURL);
                     },
                     error: function(error) {
@@ -472,9 +479,9 @@
             var deliveryTimeSelect = document.getElementById('delivery-time-option');
             var specificTimeSelect = document.getElementById('specific-time-option');
 
-            function clearTimeOptions() {
-                specificTimeSelect.innerHTML = ''; // Xóa các lựa chọn
-            }
+            //function clearTimeOptions() {
+              //  specificTimeSelect.innerHTML = ''; // Xóa các lựa chọn
+            //}
 
             function roundUpTime(date) {
                 var minutes = date.getMinutes();

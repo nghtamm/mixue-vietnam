@@ -48,6 +48,9 @@ Route::prefix('shop/api/')->middleware('shop')->group(function () {
     Route::post('/check-restaurant-change', [HomeController::class, 'checkRestaurantChange']);
 });
 
+Route::post('/create-payment', [PaymentController::class, 'createPayment'])->name('createPayment');
+Route::get('/return-payment', [PaymentController::class, 'returnPayment'])->name('returnPayment');
+
 // Route::get('/cart-count', [HomeController::class, 'getCartCount'])->name('cart.count');
 
 //Login
@@ -106,3 +109,11 @@ Route::post('/logout', function () {
     Auth::logout();
     return redirect('/');
 })->name('logout');
+
+Route::get('/lien_he', function () {
+    return view('pages.contact');
+})->name('lien_he');
+
+Route::get('/gioi_thieu', function () {
+    return view('pages.intro');
+})->name('gioi_thieu');
