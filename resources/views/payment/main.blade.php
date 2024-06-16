@@ -457,7 +457,13 @@
                     type: 'POST',
                     data: formData,
                     success: function(response) {
-                        window.location.href = response.redirectURL;
+                        if (order_payment == '1') {
+                            window.location.href = response.vnp_Url;
+                            console.log(JSON.stringify(response));
+                        }
+                        else {
+                            window.location.href = response.redirectURL;
+                        }
                         // console.log(response.redirectURL);
                     },
                     error: function(error) {

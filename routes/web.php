@@ -48,6 +48,9 @@ Route::prefix('shop/api/')->middleware('shop')->group(function () {
     Route::post('/check-restaurant-change', [HomeController::class, 'checkRestaurantChange']);
 });
 
+Route::post('/create-payment', [PaymentController::class, 'createPayment'])->name('createPayment');
+Route::get('/return-payment', [PaymentController::class, 'returnPayment'])->name('returnPayment');
+
 // Route::get('/cart-count', [HomeController::class, 'getCartCount'])->name('cart.count');
 
 //Login

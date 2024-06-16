@@ -40,4 +40,8 @@ return [
         'token' => env('TELEGRAM_BOT_TOKEN')
     ],
 
+    'vnpay' => [
+        'tmncode' => env('VNPAY_TMNCODE'),
+        'hashsecret' => env('VNPAY_HASHSECRET'),
+    ],
 ];

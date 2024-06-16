@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Log;
 class PaymentController extends Controller
 {
     /**
-     * 
+     *
      * Trang chủ
      */
     public function index(Request $request)
@@ -34,7 +34,7 @@ class PaymentController extends Controller
     }
 
     /**
-     * 
+     *
      * Gửi đơn lên database và gửi đơn telegram.
      */
     public function processCheckout(Request $request)
@@ -118,6 +118,10 @@ class PaymentController extends Controller
         $order->daily_order_number = $dailyOrderCount->order_count;
         $order->save();
 
+        if ($order_payment == '1') {
+            $vnp_Url = $this->createPayment($order);
+            return response()->json(['vnp_Url' => $vnp_Url]);
+        }
 
         // Lấy tgroup_id từ bảng restaurant dựa vào restaurantId
         $chatId = Restaurant::where('restaurant_id', $restaurantId)->value('tgroup_id');
@@ -137,8 +141,132 @@ class PaymentController extends Controller
         Cart::destroy();
         return response()->json(['redirectURL' => route('thankyou')]);
     }
+
+    public function createPayment($order) {
+        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+        $vnp_Returnurl = route('returnPayment');
+        $vnp_TmnCode = config('services.vnpay.tmncode');
+        $vnp_HashSecret = config('services.vnpay.hashsecret');
+        Log::info('VNPAY_TMNCODE: ' . $vnp_TmnCode);
+        Log::info('VNPAY_HASHSECRET: ' . $vnp_HashSecret);
+        $vnp_TxnRef = $order->id;
+        $vnp_OrderInfo = 'Thanh toán dịch vụ tại Mixue';
+        $vnp_OrderType = 'billpayment';
+        $vnp_Amount = $order->total_price * 100;
+        $vnp_Locale = 'vn';
+        $vnp_BankCode = 'VNBANK';
+        $vnp_IpAddr = request()->ip();
+
+        $inputData = array(
+            "vnp_Version" => "2.1.0",
+            "vnp_TmnCode" => $vnp_TmnCode,
+            "vnp_Amount" => $vnp_Amount,
+            "vnp_Command" => "pay",
+            "vnp_CreateDate" => date('YmdHis'),
+            "vnp_CurrCode" => "VND",
+            "vnp_Locale" => $vnp_Locale,
+            "vnp_OrderInfo" => $vnp_OrderInfo,
+            "vnp_OrderType" => $vnp_OrderType,
+            "vnp_ReturnUrl" => $vnp_Returnurl,
+            "vnp_TxnRef" => $vnp_TxnRef,
+            "vnp_IpAddr" => $vnp_IpAddr
+        );
+
+        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+            $inputData['vnp_BankCode'] = $vnp_BankCode;
+        }
+        if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
+            $inputData['vnp_Bill_State'] = $vnp_Bill_State;
+        }
+
+        ksort($inputData);
+        $query = "";
+        $i = 0;
+        $hashdata = "";
+        foreach ($inputData as $key => $value) {
+            if ($i == 1) {
+                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+            } else {
+                $hashdata .= urlencode($key) . "=" . urlencode($value);
+                $i = 1;
+            }
+            $query .= urlencode($key) . "=" . urlencode($value) . '&';
+        }
+
+        $vnp_Url = $vnp_Url . "?" . $query;
+        if (isset($vnp_HashSecret)) {
+            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//
+            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+        }
+
+        return $vnp_Url;
+    }
+
+    public function returnPayment(Request $request) {
+        $vnp_HashSecret = config('services.vnpay.hashsecret');
+        $vnp_SecureHash = $request->input('vnp_SecureHash');
+        $inputData = array();
+        foreach ($request->all() as $key => $value) {
+            if (substr($key, 0, 4) == "vnp_") {
+                $inputData[$key] = $value;
+            }
+        }
+
+        unset($inputData['vnp_SecureHash']);
+        ksort($inputData);
+        $i = 0;
+        $hashData = "";
+        foreach ($inputData as $key => $value) {
+            if ($i == 1) {
+                $hashData = $hashData . '&' . urlencode($key) . "=" . urlencode($value);
+            } else {
+                $hashData = $hashData . urlencode($key) . "=" . urlencode($value);
+                $i = 1;
+            }
+        }
+
+        $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
+        if ($secureHash == $vnp_SecureHash) {
+            if ($request->input('vnp_ResponseCode') == '00') {
+                // Xử lý đơn hàng, cập nhật trạng thái thanh toán
+                $orderId = $request->input('vnp_TxnRef');
+                $order = Orders::find($orderId);
+                $restaurantId = $order->restaurant_id;
+                $order->payment_status = 'Đã thanh toán';
+                $order->save();
+
+                // Lấy tgroup_id từ bảng restaurant dựa vào restaurantId
+                $chatId = Restaurant::where('restaurant_id', $restaurantId)->value('tgroup_id');
+                // Kiểm tra nếu chatId tồn tại
+                if ($chatId) {
+                    $order->load('orderDetails');
+                    Notification::route('telegram', $chatId)
+                        ->notify(new OrderNotification($order, $chatId));
+                    // Gửi job vào hàng đợi với độ trễ 10 phút
+                    CancelUnacceptedOrder::dispatch($order->id)->delay(now()->addMinutes(10));
+                    Log::channel('slack')->info("Bạn có 1 đơn hàng mới");
+                }
+
+                Cart::destroy();
+                return redirect()->route('thankyou');
+            } else {
+                $orderId = $request->input('vnp_TxnRef');
+                $order = Orders::find($orderId);
+                $order->bill_status = 'Hủy đơn hàng';
+                $order->save();
+
+                Cart::destroy();
+                return redirect('/');
+            }
+        } else {
+            $returnData['vnp_ResponseCode'] = '97';
+            $returnData['vnp_Message'] = 'Chữ ký không hợp lệ';
+            return response()->json($returnData);
+        }
+    }
+
     /**
-     * 
+     *
      * Main tính toán phí giao hàng
      */
     public function calculateDistance(Request $request)
@@ -212,7 +340,7 @@ class PaymentController extends Controller
 
 
     /**
-     * 
+     *
      * Kiểm tra thời gian mở cửa, đóng cửa của cửa hàng
      */
     public function checkRestaurantTime(Request $request)
@@ -232,7 +360,7 @@ class PaymentController extends Controller
     }
 
     /**
-     * 
+     *
      * Validate input
      */
     public function validateInput(Request $request)
