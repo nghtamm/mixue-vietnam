@@ -136,6 +136,7 @@
                                             <select class="form-select" id="specific-time-option"
                                                 name="specific-time-option" aria-label="Default select example"
                                                 placeholder="Thời gian cụ thể">
+                                                <option selected></option>
                                                 <option value="1">8.00</option>
                                                 <option value="2">9.00</option>
                                             </select>
@@ -472,9 +473,9 @@
             var deliveryTimeSelect = document.getElementById('delivery-time-option');
             var specificTimeSelect = document.getElementById('specific-time-option');
 
-            function clearTimeOptions() {
-                specificTimeSelect.innerHTML = ''; // Xóa các lựa chọn
-            }
+            //function clearTimeOptions() {
+              //  specificTimeSelect.innerHTML = ''; // Xóa các lựa chọn
+            //}
 
             function roundUpTime(date) {
                 var minutes = date.getMinutes();

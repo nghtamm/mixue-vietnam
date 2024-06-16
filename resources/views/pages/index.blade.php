@@ -73,9 +73,11 @@
                         </div>
                     </nav>
                     <nav class="nav nav-pills flex-column flex-sm-row">
+                        <a onclick="showProduct(0)" class="flex-sm-fill text-sm-center nav-link active"
+                            style="color:black; background-color:mistyrose;border-radius:0;user-select: none;">Tất cả</a>
                         @foreach ($category as $c)
-                            <a class="flex-sm-fill text-sm-center nav-link active" href="#"
-                                style="color:black; background-color:mistyrose;border-radius:0;">{{ $c->category_name }}</a>
+                            <a onclick="showProduct('{{ $c->category_id }}')" data-id="{{ $c->category_id }}" class="flex-sm-fill text-sm-center nav-link active"
+                                style="color:black; background-color:mistyrose;border-radius:0;user-select: none;">{{ $c->category_name }}</a>
                         @endforeach
                     </nav>
 
@@ -83,7 +85,7 @@
                 <section class="container-lg mt-2">
                     <div class="row row-cols-1 row-cols-md-4 g-2">
                         @foreach ($products as $p)
-                            <div class="products-option col" style="margin-bottom: var(--bs-gutter-y);">
+                            <div data-category-id="{{ $p->category_id }}" class="products-option col" style="margin-bottom: var(--bs-gutter-y);">
                                 <div class="card h-100" style="overflow: hidden;">
                                     <img src="{{ $p->product_image }}" class="card-img-top" alt="Mixue Viet Nam"
                                         loading="lazy" style="height: 300px;">
@@ -299,6 +301,19 @@
             </div>
         </div>
     </div>
+    <script>
+        const products = @json($products);
+        console.log(products);
+        
+        function showProduct(category_id) {
+            if (category_id == 0) {
+                $('.products-option').show();
+            } else {
+                $('.products-option').hide();
+                $(`.products-option[data-category-id=${category_id}]`).show();
+            }
+        }
+    </script>
 
     @include('pages.modal')
 @endsection
