@@ -9,7 +9,7 @@ document.getElementById("locate-me").addEventListener("click", function () {
                 fetch(
                     "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
                         latlng +
-                        "&key=AIzaSyDvt90oCXt10RAfYuWtY8M4RBHzTkndfGg"
+                        "&key=AIzaSyAI9kPkskayYti5ttrZL_UfBlL3OkMEbvs"
                 )
                     .then((response) => response.json())
                     .then((data) => {

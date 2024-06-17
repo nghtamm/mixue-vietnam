@@ -62,4 +62,8 @@ class Orders extends Model
     {
         return $this->belongsTo(Restaurant::class, 'restaurant_id', 'restaurant_id');
     }
+    public function OrderDetail()
+    {
+        return $this->belongsTo(OrderDetail::class, 'order_id');
+    }
 }

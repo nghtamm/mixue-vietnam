@@ -9,7 +9,7 @@ class Products extends Model
 {
     use HasFactory;
     protected $primaryKey = 'product_id';
-
+    public $timestamps = false;
     protected $fillable = [
         'product_id',
         'product_name',
@@ -20,4 +20,14 @@ class Products extends Model
         'product_status',
         'restaurant_id',
     ];
+
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class, 'restaurant_id');
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
 }

@@ -21,4 +21,8 @@ class NhanVien extends Model
         'phone',
         'restaurant_id',
     ];
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class, 'restaurant_id');
+    }
 }

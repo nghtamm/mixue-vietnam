@@ -188,7 +188,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="{{ asset('frontend\js\map\mapGoogle.js') }}"></script>
     <script
-        src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDvt90oCXt10RAfYuWtY8M4RBHzTkndfGg">
+        src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAI9kPkskayYti5ttrZL_UfBlL3OkMEbvs">
     </script>
 </body>
 
