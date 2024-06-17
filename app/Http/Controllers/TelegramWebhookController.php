@@ -85,7 +85,7 @@ class TelegramWebhookController extends Controller
             $order->total_price,
             $order->restaurant->restaurant_name,
             $order->bill_status,
-            $order->staff->name
+            $order->staff->name ?? $order->restaurant->restaurant_name
         ));
     }
 
