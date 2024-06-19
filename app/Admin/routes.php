@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Routing\Router;
+use App\Admin\Controllers\OrderDetailController;
 
 Admin::routes();
 
@@ -17,4 +18,5 @@ Route::group([
     $router->resource('restaurants', RestaurantController::class);
     $router->resource('staff', NhanVienController::class);
     $router->resource('orders', OrdersController::class);
+    $router->resource('order-details', OrderDetailController::class);
 });

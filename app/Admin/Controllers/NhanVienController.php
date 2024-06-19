@@ -43,6 +43,7 @@ class NhanVienController extends AdminController
                 '3' => 'Mixue Vĩnh Bảo',
             ]);
         });
+
         return $grid;
     }
 
@@ -73,12 +74,17 @@ class NhanVienController extends AdminController
     {
         $form = new Form(new NhanVien());
 
-        $form->text('telegram_id', __('Telegram id'));
+        $form->text('telegram_id', __('Telegram id'))->rules('nullable');
         $form->text('name', __('Name'))->rules('nullable');
-        $form->text('phone', __('Phone'))->rules('nullable|max:10');
-        $form->select('restaurant_id')->options(['1' => 'Mixue Quán Toan', '2'=> 'Mixue An Lão','3'=> 'Mixue Vĩnh Bảo']);
+        $form->text('phone', __('Phone'))->rules('nullable|regex:/^[0-9]{10}$/');
+        $form->select('restaurant_id', __('Restaurant'))->rules('nullable')->options([
+            '1' => 'Mixue Quán Toan',
+            '2'=> 'Mixue An Lão',
+            '3'=> 'Mixue Vĩnh Bảo'
+        ]);
+
         $form->footer(function ($footer) {
-            // Disable reset btn
+            // Disable reset button
             $footer->disableReset();
 
             // Disable `View` checkbox
@@ -89,8 +95,8 @@ class NhanVienController extends AdminController
 
             // Disable `Continue Creating` checkbox
             $footer->disableCreatingCheck();
-
         });
+
         return $form;
     }
 }
