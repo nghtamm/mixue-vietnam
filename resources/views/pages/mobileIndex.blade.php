@@ -104,7 +104,7 @@
                                                 </select>
                                             </div>
                                             <div class="select is-normal mb-3" style="width:100%;">
-                                                @if ($p->category_id == 1)
+                                                {{-- @if ($p->category_id == 1)
                                                     <select name="sugar" style="width:100%">
                                                         @foreach ($sugar as $sugarOption)
                                                             @if ($sugarOption->sugar_option == 'Bình thường')
@@ -114,7 +114,7 @@
                                                             @endif
                                                         @endforeach
                                                     </select>
-                                                @else
+                                                @else --}}
                                                     <select name="sugar" style="width:100%">
                                                         @foreach ($sugar as $sugarOption)
                                                             <option value="{{ $sugarOption->sugar_id }}"
@@ -123,7 +123,7 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
-                                                @endif
+                                                {{-- @endif --}}
 
                                             </div>
                                             <button type="button" class="add-to-cart btn btn-outline-success"
