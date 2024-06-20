@@ -19,4 +19,5 @@ Route::group([
     $router->resource('staff', NhanVienController::class);
     $router->resource('orders', OrdersController::class);
     $router->resource('order-details', OrderDetailController::class);
+    $router->resource('chart', \App\Admin\Controllers\ChartjsController::class);
 });
