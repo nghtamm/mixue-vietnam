@@ -2,7 +2,9 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Category;
 use App\Models\Products;
+use App\Models\Restaurant;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -47,11 +49,7 @@ class ProductsController extends AdminController
                 '4'    => 'Dòng cafe',
             ]);
 
-            $filter->in('restaurant_id')->checkbox([
-                '1'     => 'Mixue Quán Toan',
-                '2'     => 'Mixue An Lão',
-                '3'     => 'Mixue Vĩnh Bảo',
-            ]);
+            $filter->like('restaurant.restaurant_name', 'Restaurant name');
             $filter->in('product_status')->checkbox([
                 '1'     => 'Còn hàng',
                 '2'     => 'Hết hàng',
@@ -97,9 +95,9 @@ class ProductsController extends AdminController
         $form->textarea('product_description', __('Product description'));
         $form->text('product_image', __('Product image'))->rules('nullable');
         $form->number('product_price', __('Product price'))->rules('nullable');
-        $form->select('category_id')->options(['1' => 'Dòng kem', '2'=> 'Dòng trà hoa quả','3'=> 'Dòng trà sữa','4'=> 'Dòng cafe']);
+        $form->select('category_id', __('Category'))->options(Category::all()->pluck('category_name', 'category_id'))->rules('required');
         $form->switch('product_status', __('Product status'))->default(1);
-        $form->select('restaurant_id')->options(['1' => 'Mixue Quán Toan', '2'=> 'Mixue An Lão','3'=> 'Mixue Vĩnh Bảo']);
+        $form->select('restaurant_id', __('Restaurant'))->options(Restaurant::all()->pluck('restaurant_name', 'restaurant_id'))->rules('required');
         $form->footer(function ($footer) {
             // Disable reset btn
             $footer->disableReset();

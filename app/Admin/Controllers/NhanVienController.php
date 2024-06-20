@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\NhanVien;
+use App\Models\Restaurant;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -37,11 +38,7 @@ class NhanVienController extends AdminController
             // Thêm 1 filter theo cột dữ liệu
             $filter->like('name', 'Staff name');
             $filter->like('phone', 'Phone');
-            $filter->in('restaurant_id')->checkbox([
-                '1' => 'Mixue Quán Toan',
-                '2' => 'Mixue An Lão',
-                '3' => 'Mixue Vĩnh Bảo',
-            ]);
+            $filter->like('restaurant.restaurant_name', 'Restaurant name');
         });
 
         return $grid;
@@ -77,11 +74,7 @@ class NhanVienController extends AdminController
         $form->text('telegram_id', __('Telegram id'))->rules('nullable');
         $form->text('name', __('Name'))->rules('nullable');
         $form->text('phone', __('Phone'))->rules('nullable|regex:/^[0-9]{10}$/');
-        $form->select('restaurant_id', __('Restaurant'))->rules('nullable')->options([
-            '1' => 'Mixue Quán Toan',
-            '2'=> 'Mixue An Lão',
-            '3'=> 'Mixue Vĩnh Bảo'
-        ]);
+        $form->select('restaurant_id', __('Restaurant'))->options(Restaurant::all()->pluck('restaurant_name', 'restaurant_id'))->rules('required');
 
         $form->footer(function ($footer) {
             // Disable reset button
