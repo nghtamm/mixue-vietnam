@@ -1,6 +1,6 @@
 <nav class="navbar-main">
     <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
+        <div class="container-fluid px-4">
             <a class="navbar-brand" href="{{ route('home') }}">
                 <img style="height: 3rem;" src="{{ asset('frontend\images\logo.png') }}">
             </a>
@@ -9,15 +9,15 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: flex; gap:20px">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: flex; gap:60px; margin-left: 50px">
                     <li class="nav-item" style="cursor: pointer;">
-                        <span><a style="text-decoration: none; color: #333" href="{{ route('gioi_thieu') }}">
+                        <span><a style="text-decoration: none; color: #333; font-size: large;" href="{{ route('gioi_thieu') }}">
                                 Giới thiệu
                             </a>
                         </span>
                     </li>
                     <li class="nav-item" style="cursor: pointer;">
-                        <span><a style="text-decoration: none; color: #333" href="{{ route('lien_he') }}">
+                        <span><a style="text-decoration: none; color: #333; font-size: large" href="{{ route('lien_he') }}">
                                 Liên hệ</span>
                         </a>
                     </li>
@@ -27,7 +27,7 @@
                         @if (isset($currentUser))
                             <a href="" class="fs-6 text-decoration-none dropdown-toggle"
                                 style="color:black; font-weight: 500;" data-bs-toggle="dropdown">
-                                <span style="color:#cb1c3b">
+                                <span class="mr-2" style="color:#cb1c3b">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />

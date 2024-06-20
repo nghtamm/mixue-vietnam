@@ -19,10 +19,9 @@
     }
 </style>
 
-<div id="loadingOverlay"
-    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9999;">
-    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-        <div class="spinner"></div>
-        <p style="color: white; text-align: center;">Đang xử lý đơn hàng, vui lòng chờ...</p>
+<div id="loadingOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9999;">
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center;">
+        <div class="spinner" style="margin-bottom: 10px"></div>
+        <p style="color: white; text-align: center;">Đơn hàng đang được xử lý, vui lòng chờ...</p>
     </div>
 </div>

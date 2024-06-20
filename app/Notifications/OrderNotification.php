@@ -62,27 +62,27 @@ class OrderNotification extends Notification implements ShouldQueue
 
     private function getAddressCoordinates($address)
     {
-        $client = new Client();
-        $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json', [
-            'query' => [
-                'address' => $address,
-                'key' => env('GOOGLE_MAPS_API_KEY')
-            ]
-        ]);
-
-        $data = json_decode($response->getBody(), true);
-        // Log dữ liệu để debug
-        Log::channel('slack')->info("API Response:", $data);
-        if (!empty($data['results'])) {
-            $coordinates = $data['results'][0]['geometry']['location'];
-            Log::info('Coordinates found:', ['latitude' => $coordinates['lat'], 'longitude' => $coordinates['lng']]);
-            return (object) [
-                'latitude' => $coordinates['lat'],
-                'longitude' => $coordinates['lng']
-            ];
-        }
-
-        return null;
+//        $client = new Client();
+//        $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json', [
+//            'query' => [
+//                'address' => $address,
+//                'key' => env('GOOGLE_MAPS_API_KEY')
+//            ]
+//        ]);
+//
+//        $data = json_decode($response->getBody(), true);
+//        // Log dữ liệu để debug
+//        Log::channel('slack')->info("API Response:", $data);
+//        if (!empty($data['results'])) {
+//            $coordinates = $data['results'][0]['geometry']['location'];
+//            Log::info('Coordinates found:', ['latitude' => $coordinates['lat'], 'longitude' => $coordinates['lng']]);
+//            return (object) [
+//                'latitude' => $coordinates['lat'],
+//                'longitude' => $coordinates['lng']
+//            ];
+//        }
+//
+//        return null;
     }
 
     public function toTelegram($notifiable)

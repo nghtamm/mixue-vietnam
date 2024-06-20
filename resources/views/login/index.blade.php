@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Đăng nhập</title>
+    <title>Đăng nhập vào Mixue Việt Nam</title>
+    <link rel="shortcut icon" type="image/png" href="{{ asset('frontend\images\mixue-favicon.png') }}"/>
     @include('pages.head')
     <style>
         .title {
@@ -18,7 +19,7 @@
 </head>
 
 <body>
-    <section class="vh-100" style="background-image: url({{ asset('frontend/images/login.png') }}); object-fit: cover;">
+    <section class="vh-100" style="background-image: url({{ asset('frontend/images/login.jpg') }}); object-fit: cover;">
         <div class="container py-2 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col col-xl-10">
@@ -35,12 +36,10 @@
                                         style="justify-content: center;"><img class="img-fluid"
                                             src="{{ asset('frontend\images\logo.png') }}" style="height: 60px;"></a>
 
-                                    <h2 class="title mb-2 pb-3">🍦🍦 WELCOME BACK! 🍦🍦</h2>
+                                    <h2 class="title mb-2 pb-3">Chào mừng bạn tới với Mixue Việt Nam! 🍦</h2>
 
                                     <h6 class="fw-normal mb-3 pb-3" style="text-align: center;">
-                                        BẠN ĐÃ LÀ THÀNH
-                                        VIÊN MIXUE VIỆT NAM! ĐĂNG NHẬP TRƯỚC KHI THANH TOÁN ĐỂ TÍCH ĐIỂM – ĐỔI ĐỒ
-                                        UỐNG NHÉ!</h6>
+                                        Chúc mừng bạn đã là thành viên của Mixue Việt Nam! Nhớ đăng nhập để có thể đặt đồ, thanh toán và tích điểm - đổi đồ uống miễn phí bạn nhé!</h6>
 
                                     <form method="POST" action="{{ route('login') }}">
                                         @csrf
@@ -58,13 +57,13 @@
                                             <input type="email" class="form-control" id="floatingInput"
                                                 placeholder="name@example.com" name="user_email"
                                                 value="{{ old('user_email') }}" autofocus>
-                                            <label for="floatingInput">Email address</label>
+                                            <label for="floatingInput">Địa chỉ email</label>
                                         </div>
 
                                         <div class="form-floating mb-2 position-relative">
                                             <input type="password" class="form-control" id="floatingPassword"
                                                 placeholder="Password" name="user_password">
-                                            <label for="floatingPassword">Password</label>
+                                            <label for="floatingPassword">Mật khẩu</label>
                                             <i class="bi bi-eye-slash" id="togglePassword"
                                                 style="position: absolute; top: 50%; right: 20px; transform: translateY(-50%); cursor: pointer;"></i>
                                         </div>
@@ -81,7 +80,7 @@
                                                 </label>
                                             </div>
                                             <div>
-                                                <a href="#!" style="color: #393f81; text-decoration: none">Quên
+                                                <a href="{{ route('forgot-password') }}" style="color: #393f81; text-decoration: none">Quên
                                                     mật
                                                     khẩu</a>
                                             </div>
@@ -104,6 +103,15 @@
             </div>
         </div>
     </section>
+    <script>
+        document.getElementById('remember').addEventListener('change', function() {
+            if (this.checked) {
+                this.style.backgroundColor = '#198754';
+            } else {
+                this.style.backgroundColor = '';
+            }
+        });
+    </script>
     <script>
         const togglePassword = document.querySelector('#togglePassword');
         const password = document.querySelector('#floatingPassword');

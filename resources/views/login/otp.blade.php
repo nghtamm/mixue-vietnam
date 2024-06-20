@@ -138,11 +138,11 @@
                     <tr>
                         <td align="center" valign="top"
                             style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 17px; font-weight: 400; line-height: 160%;
-			padding-top: 25px; 
+			padding-top: 25px;
 			color: #000000;
 			font-family: sans-serif;"
                             class="paragraph">
-                            Hi {{ $name }},<br> Để bắt đầu sử dụng tài khoản mới, bạn cần xác nhận email của
+                            Hi {{ $name }},<br> để bắt đầu sử dụng tài khoản mới, bạn cần xác nhận email của
                             bạn.
                         </td>
                     </tr>

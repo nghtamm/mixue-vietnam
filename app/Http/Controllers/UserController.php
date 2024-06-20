@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Facades\Mail;
@@ -159,6 +160,96 @@ class UserController extends Controller
         return back()->with('login_error', $errorMessage);
     }
 
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'user_email' => 'required|email',
+        ]);
+
+        $user = UserMixue::where('user_email', $request->input('user_email'))->first();
+
+        if (!$user) {
+            return response()->json(['error' => 'Không tìm thấy người dùng.'], 404);
+        } else {
+            session(['user_email' => $user->user_email]);
+
+            $currentTimestamp = now()->timestamp;
+            $otpExpiresAt = session('otp_expires_at', 0);
+
+            if ($currentTimestamp > $otpExpiresAt) {
+                // Sinh OTP ngẫu nhiên
+                $otpCode = rand(100000, 999999);
+
+                // Lưu OTP vào database
+                $user->otp_code = $otpCode;
+                $user->save();
+
+                // Lưu thời gian hết hạn OTP vào session hoặc cache
+                $expiresAt = now()->addMinutes(1);
+                Cache::put('otp_expires_at_' . $user->user_id, $expiresAt, 60);
+                session(['otp_expires_at' => $expiresAt->timestamp]);
+
+                // Gửi OTP mới qua email
+                // Gửi mail thông qua queue
+                Mail::to($user->user_email)->queue(new OtpMail($user->user_name, $otpCode));
+
+                $messageSuccess = 'Đã gửi thành công mã OTP về email';
+                return redirect()->route('forgotpwd-verify-mail')->with('success', $messageSuccess);
+            } else {
+                // Nếu OTP chưa hết hạn, chuyển hướng người dùng tới trang xác thực với thông báo
+                $messageInfo = 'Mã OTP vẫn còn hiệu lực, vui lòng kiểm tra email.';
+                return redirect()->route('forgotpwd-verify-mail')->with('success', $messageInfo);
+            }
+        }
+    }
+
+    public function verifyOtp(Request $request)
+    {
+        $request->validate([
+            'otp' => 'required|integer',
+        ]);
+
+        $user = UserMixue::where('otp_code', $request->input('otp'))->first();
+
+        if (!$user) {
+            return back()->withErrors(['otp' => 'Mã OTP không chính xác.']);
+        }
+
+        // Nếu OTP chính xác, chuyển hướng người dùng đến trang reset mật khẩu
+        $redirectUrl = route('reset-password');
+        return response()->json(['success' => 'OTP chính xác.', 'redirectUrl' => $redirectUrl]);
+    }
+
+    public function changePassword(Request $request)
+    {
+        // Kiểm tra xem người dùng có đến từ trang forgot-password không
+        if (!session()->has('user_email')) {
+            return redirect()->route('forgot-password')->with('error', 'Không thể đặt lại mật khẩu. Vui lòng thử lại.');
+        }
+
+        // Lấy email người dùng từ session
+        $user_email = session()->get('user_email');
+//        Log::log('info', 'Email người dùng: ' . $user_email);
+
+        // Tìm người dùng tương ứng
+        $user = UserMixue::where('user_email', $user_email)->first();
+
+        // Kiểm tra xem mật khẩu và mật khẩu xác nhận có khớp nhau không
+        $user_password = $request->input('user_password');
+        $user_repassword = $request->input('user_repassword');
+        if ($user_password !== $user_repassword) {
+            return back()->withErrors(['user_password' => 'Mật khẩu và mật khẩu xác nhận không khớp.']);
+        }
+
+        // Cập nhật mật khẩu người dùng
+        $user->user_password = Hash::make($user_password);
+        $user->save();
+
+        // Xóa email người dùng khỏi session
+        session()->forget('user_email');
+
+        return redirect()->route('login')->with('success', 'Mật khẩu đã được đặt lại thành công.');
+    }
 
     public function updateStatus(Request $request, $userId)
     {

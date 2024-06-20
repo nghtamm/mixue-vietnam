@@ -37,6 +37,6 @@ class OtpMail extends Mailable implements ShouldQueue
                 'name' => $this->name,
                 'otp' => $this->otp
             ])
-            ->subject('Mã Xác Thực OTP Mixue');
+            ->subject('Mã xác thực OTP Mixue Việt Nam');
     }
 }

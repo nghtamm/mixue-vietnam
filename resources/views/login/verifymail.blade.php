@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Verify Mail</title>
+    <title>Xác thực tài khoản</title>
+    <link rel="shortcut icon" type="image/png" href="{{ asset('frontend\images\mixue-favicon.png') }}"/>
     @include('pages.head')
     <style>
         .timer-style {
@@ -27,11 +28,9 @@
                             <input type="hidden" class="form-control" id="token" name="_token"
                                 value="{{ csrf_token() }}">
                             <div class="card-body">
-                                <div class="mb-3">
-                                    <a type="button" href="{{ route('home') }}" class="btn btn-primary btn-sm">Trang
-                                        chủ</a>
-                                    <a type="button" href="{{ route('login') }}" class="btn btn-secondary btn-sm">Đăng
-                                        nhập</a>
+                                <div class="card px-4 py-3 mb-2" style="border-radius: 0.5rem; display:block">
+                                    <a type="button" href="{{ route('home') }}" class="btn btn-primary btn-md">Trang chủ</a>
+                                    <a type="button" href="{{ route('login') }}" class="btn btn-secondary btn-md ml-1">Đăng nhập</a>
                                 </div>
                                 <h3 class="card-title">Xác thực tài khoản</h3>
                                 <p class="card-text">Mã xác thực đã được gửi qua email. Bạn vui lòng kiểm tra hòm thư

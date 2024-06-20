@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Đăng ký tài khoản</title>
+    <link rel="shortcut icon" type="image/png" href="{{ asset('frontend\images\mixue-favicon.png') }}"/>
+
     @include('pages.head')
     <style>
         .title {
@@ -66,24 +68,26 @@
 </head>
 
 <body>
-    <section class="vh-100" style="background-image: url({{ asset('frontend/images/login.png') }}); object-fit: cover;">
+    <section class="vh-100" style="background-image: url({{ asset('frontend/images/login.jpg') }}); object-fit: cover;">
         <div class="container py-2 h-100">
 
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col col-xl-10">
-                    <div class="card p-2 mb-2" style="border-radius: 0.5rem; display:block">
-                        <a type="button" href="{{ route('home') }}" class="btn btn-primary btn-sm">Trang chủ</a>
-                        <a type="button" href="{{ route('login') }}" class="btn btn-secondary btn-sm">Đăng nhập</a>
+                    <div class="card px-4 py-3 mb-2" style="border-radius: 0.5rem; display:block">
+                        <a type="button" href="{{ route('home') }}" class="btn btn-primary btn-md">Trang chủ</a>
+                        <a type="button" href="{{ route('login') }}" class="btn btn-secondary btn-md ml-1">Đăng nhập</a>
                     </div>
-                    <div class="card" style="border-radius: 1rem;">
+                    <div class="card p-4" style="border-radius: 1rem;">
+                        <a href="{{ route('home') }}" class="d-flex my-3"
+                           style="justify-content: center;"><img class="img-fluid"
+                                                                 src="{{ asset('frontend\images\logo.png') }}" style="height: 60px;"></a>
                         <form method="POST" action="{{ route('addUserRegister') }}">
                             @csrf
                             <div class="row g-0">
-                                <h2 class="title mt-3 mb-1 pb-1">ĐĂNG KÝ NGƯỜI DÙNG</h2>
+                                <h2 class="title mb-1 pb-1">Đăng ký tài khoản</h2>
 
                                 <h6 class="fw-normal mb-1 pb-3 px-2" style="text-align: center;">
-                                    ĐĂNG KÝ TÀI KHOẢN NGƯỜI DÙNG VÀ ĐĂNG NHẬP
-                                    TRƯỚC KHI THANH TOÁN ĐỂ TÍCH ĐIỂM – ĐỔI ĐỒ UỐNG NHÉ!</h6>
+                                    Trở thành hội viên của Mixue Việt Nam ngay bây giờ để nhận về những ưu đãi bất ngờ tới từ chúng mình nhé! 🍦</h6>
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
                                         <ul>
@@ -99,14 +103,13 @@
                                             <input type="text" class="form-control" id="user_name"
                                                 placeholder="Nguyen Hoai Nam" name="user_name"
                                                 value="{{ old('user_name') }}">
-                                            <label for="user_name">Full Name</label>
+                                            <label for="user_name">Họ và tên</label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input type="email" class="form-control" id="user_email"
                                                 placeholder="name@example.com" name="user_email"
                                                 value="{{ old('user_email') }}">
-                                            <label for="user_email">Email
-                                                address</label>
+                                            <label for="user_email">Địa chỉ email</label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input type="tel" class="form-control" id="user_phone"
@@ -121,7 +124,7 @@
                                                 <option value="male">Nam</option>
                                                 <option value="female">Nữ</option>
                                             </select>
-                                            <label for="user_gender">Chọn giới tính</label>
+                                            <label for="user_gender">Giới tính</label>
                                         </div>
                                     </div>
                                 </div>
@@ -144,40 +147,41 @@
                                         <input type="password" class="form-control" id="floatingPassword"
                                             placeholder="Nhập mật khẩu của bạn" name="user_password"
                                             onkeyup="validatePassword()" required>
-                                        <label for="floatingPassword">Password</label>
+                                        <label for="floatingPassword">Mật khẩu</label>
                                     </div>
 
                                     <div class="password mb-2 pb-lg-2" style="display: grid;">
-                                        <strong>Mật khẩu ít nhất 8 ký tự và đáp ứng 5 điều kiện sau:</strong>
+                                        <strong>Mật khẩu chứa ít nhất 8 ký tự và đáp ứng 5 điều kiện sau:</strong>
                                         <span id="requirementNumber">
                                             <i class="bi bi-exclamation-circle"></i>
-                                            Các số 0-9. Ví dụ: 2, 6, 7
+                                            Chứa ít nhất một số 0-9. Ví dụ: 2, 6, 7
                                         </span>
                                         <span id="requirementLowerCase">
                                             <i class="bi bi-exclamation-circle"></i>
-                                            Các chữ cái thường (nhỏ) a-z. Ví dụ: a, e, r
+                                            Chứa ít nhất một chữ cái thường (nhỏ) a-z. Ví dụ: a, e, r
                                         </span>
                                         <span id="requirementUpperCase">
                                             <i class="bi bi-exclamation-circle"></i>
-                                            Chữ cái viết hoa (in hoa) A-Z. Ví dụ: A, E, R
+                                            Chứa ít nhất một chữ cái viết hoa (in hoa) A-Z. Ví dụ: A, E, R
                                         </span>
                                         <span id="requirementSpecialChar">
                                             <i class="bi bi-exclamation-circle"></i>
-                                            Các ký tự đặc biệt như !@#$
+                                            Chứa ít nhất một ký tự đặc biệt như !@#$
                                         </span>
                                         <span id="requirementTrim">
                                             <i class="bi bi-exclamation-circle"></i>
-                                            Không có khoảng trắng
+                                            Không chứa khoảng trắng
                                         </span>
                                     </div>
                                 </div>
-                                <div class="cf-turnstile text-center"
+                                <div class="cf-turnstile text-center mb-3"
                                     data-sitekey="{{ config('services.turnstile.site') }}"></div>
                                 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
                             </div>
                             <div class="ps-3 pe-3 mb-3" style="text-align: center;">
-                                <input type="submit" class="btn btn-success" id="submitBtn" style="width:50%"
+                                <input type="submit" class="btn btn-success" id="submitBtn" style="width:40%"
                                     value="Đăng ký">
+                            </div>
                         </form>
                     </div>
                 </div>
