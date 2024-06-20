@@ -7,6 +7,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use App\Models\UserMixue;
 
 class RestaurantController extends AdminController
 {
@@ -33,14 +34,10 @@ class RestaurantController extends AdminController
         $grid->column('restaurant_image', __('Restaurant image'));
         $grid->column('tgroup_id', __('Tgroup id'));
         $grid->filter(function ($filter) {
-            // Xóa ID filter mặc định
-            $filter->disableIdFilter();
-
             // Thêm 1 filter theo cột dữ liệu
             $filter->like('restaurant_name', 'Restaurant name');
             $filter->like('restaurant_location', 'Restaurant location');
         });
-        return $grid;
         return $grid;
     }
 
@@ -72,19 +69,22 @@ class RestaurantController extends AdminController
      *
      * @return Form
      */
-    protected function form()
-    {
-        $form = new Form(new Restaurant());
+   protected function form()
+   {
+       $form = new Form(new Restaurant());
 
-        $form->text('restaurant_name', __('Restaurant name'));
-        $form->textarea('restaurant_location', __('Restaurant location'));
-        $form->time('restaurant_openTime', __('Restaurant openTime'))->default(date('H:i:s'));
-        $form->time('restaurant_closeTime', __('Restaurant closeTime'))->default(date('H:i:s'));
-        $form->switch('restaurant_openStatus', __('Restaurant openStatus'))->default(1);
-        $form->text('user_id', __('User id'));
-        $form->text('restaurant_image', __('Restaurant image'));
-        $form->number('tgroup_id', __('Tgroup id'));
+       // Ẩn trường restaurant_id trong form tạo
+       $form->hidden('restaurant_id', __('Restaurant id'));
 
-        return $form;
-    }
+       $form->text('restaurant_name', __('Restaurant name'))->rules('nullable');
+       $form->textarea('restaurant_location', __('Restaurant location'))->rules('nullable');
+       $form->time('restaurant_openTime', __('Restaurant openTime'))->default(date('H:i:s'));
+       $form->time('restaurant_closeTime', __('Restaurant closeTime'))->default(date('H:i:s'));
+       $form->switch('restaurant_openStatus', __('Restaurant openStatus'))->default(1);
+       $form->select('user_id', __('User id'))->options(UserMixue::all()->pluck('user_name', 'user_id'))->rules('required');
+       $form->text('restaurant_image', __('Restaurant image'));
+       $form->text('tgroup_id', __('Tgroup id'));
+
+       return $form;
+   }
 }

@@ -93,10 +93,10 @@ class ProductsController extends AdminController
     {
         $form = new Form(new Products());
 
-        $form->text('product_name', __('Product name'));
+        $form->text('product_name', __('Product name'))->rules('nullable');
         $form->textarea('product_description', __('Product description'));
-        $form->text('product_image', __('Product image'));
-        $form->number('product_price', __('Product price'));
+        $form->text('product_image', __('Product image'))->rules('nullable');
+        $form->number('product_price', __('Product price'))->rules('nullable');
         $form->select('category_id')->options(['1' => 'Dòng kem', '2'=> 'Dòng trà hoa quả','3'=> 'Dòng trà sữa','4'=> 'Dòng cafe']);
         $form->switch('product_status', __('Product status'))->default(1);
         $form->select('restaurant_id')->options(['1' => 'Mixue Quán Toan', '2'=> 'Mixue An Lão','3'=> 'Mixue Vĩnh Bảo']);
