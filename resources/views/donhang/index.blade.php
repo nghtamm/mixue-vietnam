@@ -4,7 +4,9 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Đơn hàng</title>
+    <title>Lịch sử đơn hàng</title>
+    <link rel="shortcut icon" type="image/png" href="{{ asset('frontend\images\mixue-favicon.png') }}"/>
+
     @include('pages.head')
     <link rel="stylesheet" href="{{ asset('frontend/css/payment.css') }}">
 </head>
@@ -12,7 +14,7 @@
 <body>
     @include('payment.head')
     <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
-    <form action="" method="POST" id="frmRegister_index">
+    <form action="" method="POST" id="frmRegister_index" class="py-3 pl-4 pr-2">
         <div class="container-fluid mt-2">
             <section class="content-wrapper">
                 <ol class="breadcrumb">
@@ -29,11 +31,11 @@
                                     <option value="CHUA_XAC_THUC">Chưa xác thực</option>
                                 </select>
                             </div> --}}
-                            <div class="col-md-12">
-                                <div class="input-group ">
-                                    <input id="txt_search" class="form-control input-sm" value="" type="text"
+                            <div class="col-md-12" style="display: none">
+                                <div class="input-group px-3">
+                                    <input id="txt_search" class="form-control input-sm pr-2" value="" type="text"
                                         placeholder="Tìm kiếm đơn hàng">
-                                    <span class="input-group-btn">
+                                    <span class="input-group-btn pl-2">
                                         <button type="button" id="find-search" class="input-group-text map-button"
                                             style="background-color: #198754; padding: 10px 16px !important;"
                                             data-loading-text="Tìm kiếm..."><i class="bi bi-search" style="color:white"

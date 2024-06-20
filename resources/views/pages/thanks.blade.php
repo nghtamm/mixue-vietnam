@@ -4,7 +4,9 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cảm ơn đã mua hàng</title>
+    <title>Cảm ơn bạn đã mua hàng!</title>
+    <link rel="shortcut icon" type="image/png" href="{{ asset('frontend\images\mixue-favicon.png') }}"/>
+
     @include('pages.head')
     <link rel="stylesheet" href="{{ asset('frontend/css/payment.css') }}">
 </head>
@@ -21,10 +23,9 @@
                 </svg>
             </div>
             <div class="text-center">
-                <h1>Cảm ơn bạn đã đặt đồ uống!</h1>
-                <p>Chúng tôi sẽ gửi email khi đơn đã được xác nhận từ phía cửa hàng. Bạn có thể kiểm tra đơn hàng tại
+                <h1>Cảm ơn bạn đã đặt đồ giải khát tại Mixue Việt Nam!</h1>
+                <p>Chúng tôi sẽ gửi email khi đơn đã được xác nhận hoặc đơn bị hủy từ phía cửa hàng. Bạn có thể kiểm tra tình trạng đơn hàng tại
                     mục đơn hàng.</p>
-                <p>Nếu bạn chọn hình thức chuyển khoản, vui lòng nhắn tin tới page để thanh toán!!!</p>
                 <a type="button" href="/" class="btn btn-success">Quay lại trang chủ</a>
             </div>
         </div>

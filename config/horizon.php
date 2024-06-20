@@ -181,7 +181,7 @@ return [
 
     'defaults' => [
         'supervisor-1' => [
-            'connection' => 'redis',
+            'connection' => 'database',
             'queue' => ['default'],
             'balance' => 'auto',
             'autoScalingStrategy' => 'time',
@@ -198,7 +198,7 @@ return [
     'environments' => [
         'production' => [
             'supervisor-1' => [
-                'connection' => 'redis',
+                'connection' => 'database',
                 'queue' => ['default'],
                 'balance' => 'auto',
                 'processes' => 10,
@@ -207,7 +207,7 @@ return [
         ],
         'local' => [
             'supervisor-1' => [
-                'connection' => 'redis',
+                'connection' => 'database',
                 'queue' => ['default'],
                 'balance' => 'auto',
                 'processes' => 3,

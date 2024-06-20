@@ -1,12 +1,12 @@
 @extends('payment.index')
 
 @section('payment')
-    <div class="container-fluid">
-        <section class="container-fluid mt-2">
+    <div class="container-fluid" style="height: 90vh">
+        <section class="container-fluid mt-3">
             <nav class="navbar bg-body-tertiary" style="border-bottom:unset; position: unset;">
                 <div class="container-fluid">
                     <div class="d-flex" style="align-items: center;">
-                        <h2 style="padding-right: 15px;">XÁC NHẬN THÔNG TIN KHÁCH HÀNG</h2>
+                        <h2 style="padding-right: 15px;">Xác nhận thông tin đơn hàng</h2>
                         <button type="button" class="btn btn-success btn-sm"
                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;--bs-btn-bg:#CB1C3B;--bs-btn-border-color:unset;--bs-btn-hover-bg:#CB1C3B">Số
                             lượng sản phẩm: {{ Cart::count() }}</button>
@@ -20,7 +20,7 @@
             <div class="col-sm-9 px-3 d-sm-block">
                 @include('notifications.alert')
 
-                <section class="payment-information container mt-2">
+                <section class="payment-information container mt-2" style="border-radius: 5px">
                     <div class="form-check" style="padding-top: 10px;">
                         <input class="form-check-input" type="checkbox" value="" id="order_nguoithan"
                             data-bs-toggle="collapse" data-bs-target="#collapseMap" aria-expanded="false"
@@ -92,7 +92,7 @@
                             <div class="form-floating mb-3">
                                 <input type="email" class="form-control" id="order_email" placeholder="Nhập email"
                                     value="{{ $user->user_email ?? '' }}" required disabled>
-                                <label for="order_email">Email</label>
+                                <label for="order_email">Địa chỉ email</label>
                             </div>
                         </div>
                         <div class="col-6">
@@ -137,8 +137,8 @@
                                                 name="specific-time-option" aria-label="Default select example"
                                                 placeholder="Thời gian cụ thể">
                                                 <option selected></option>
-                                                <option value="1">8.00</option>
-                                                <option value="2">9.00</option>
+{{--                                                <option value="1">8.00</option>--}}
+{{--                                                <option value="2">9.00</option>--}}
                                             </select>
                                             <label for="specific-time-option">Thời gian cụ thể</label>
                                         </div>
@@ -167,7 +167,7 @@
                             data-thanhvien="{{ $thanhvien }}"></div>
                         <p> <span>Tổng</span> <span id="totalPrice">@currency($total)</span> </p>
                         <p>
-                            <span class="w-50">Giảm T.Viên</span>
+                            <span class="w-50">Giảm giá thành viên</span>
                             <a tyle="button" data-bs-toggle="modal" data-bs-target="#thanhvienModal"><svg
                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-info-circle" viewBox="0 0 16 16">
@@ -178,7 +178,7 @@
                             <span>@currency($thanhvien)</span>
                         </p>
                         <p>
-                            <span class="w-50">Giảm K.Mại</span>
+                            <span class="w-50">Khuyến mại</span>
                             <a type="button" data-bs-toggle="modal" data-bs-target="#khuyenmaiModal"><svg
                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-info-circle" viewBox="0 0 16 16">
@@ -188,7 +188,7 @@
                                 </svg></a>
                             <span>@currency($khuyenmai)</span>
                         </p>
-                        <p> <span>Phí Giao Hàng</span> <span id="shippingFee"></span> </p>
+                        <p> <span>Phí giao hàng</span> <span id="shippingFee"></span> </p>
                     </div>
                     <div class="payment ">
                         <h2 style="margin-bottom: .2rem;">Thanh toán: </h2>
@@ -202,7 +202,7 @@
                                 <input class="form-check-input" type="radio" name="order_payment" id="order_payment1"
                                     value="0" checked>
                                 <label class="form-check-label" for="order_payment1" style="width: 100%;">
-                                    <button type="button" class="tienmat d-flex">
+                                    <button type="button" class="tienmat d-flex" style="min-height: 52px">
                                         <img src="{{ asset('frontend/images/cash.webp') }}" class="card-img-top"
                                             style="width:50px;margin-right: 20px;" alt="...">
                                         Thanh toán bằng tiền mặt
@@ -214,10 +214,10 @@
                                 <input class="form-check-input" type="radio" name="order_payment" id="order_payment2"
                                     value="1">
                                 <label class="form-check-label" for="order_payment2" style="width: 100%;">
-                                    <button type="button" class="tienmat d-flex">
+                                    <button type="button" class="tienmat d-flex" style="min-height: 52px">
                                         <img src="{{ asset('frontend/images/vnpay-logo.jpg') }}" class="card-img-top"
                                             style="width:50px;margin-right: 20px;" alt="...">
-                                        Thanh toán chuyển khoản
+                                        Thanh toán chuyển khoản (thông qua VNPAY)
                                     </button>
                                 </label>
                             </div>
@@ -385,7 +385,7 @@
 
                     // Sử dụng Geocoding API để chuyển đổi latlng thành địa chỉ
                     fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng +
-                            '&key=AIzaSyDvt90oCXt10RAfYuWtY8M4RBHzTkndfGg')
+                            '&key=AIzaSyAI9kPkskayYti5ttrZL_UfBlL3OkMEbvs')
                         .then(response => response.json())
                         .then(data => {
                             if (data.status === 'OK') {

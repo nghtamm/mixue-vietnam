@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,6 +18,7 @@ class CheckUser
     public function handle(Request $request, Closure $next)
     {
         if (!Auth::check()) {
+//            Log::info('Unauthorized access attempt', ['user' => Auth::user(), 'url' => $request->url()]);
             // Nếu không đáp ứng điều kiện, trả về mã lỗi 403
             abort(403);
         }

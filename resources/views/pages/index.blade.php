@@ -7,7 +7,7 @@
             <div class="products-show-col col-md-9 px-0 d-sm-block" style="border-right: 1px solid #dfdfe3">
                 <nav class="navbar-main">
                     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                        <div class="container-fluid">
+                        <div class="container-fluid px-4">
                             <a class="navbar-brand" href="{{ route('home') }}">
                                 <img style="height: 3rem;" src="{{ asset('frontend\images\logo.png') }}">
                             </a>
@@ -17,7 +17,16 @@
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarText">
-                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: flex; gap:60px; margin-left: 50px">
+                                    <li class="nav-item" style="cursor: pointer;">
+                                        <span><a style="text-decoration: none; color: #333; font-size: large;" href="{{ route('gioi_thieu') }}">
+                                            Giới thiệu
+                                        </a></span>
+                                    </li>
+                                    <li class="nav-item" style="cursor: pointer;">
+                                        <span><a style="text-decoration: none; color: #333; font-size: large" href="{{ route('lien_he') }}">
+                                            Liên hệ</a></span>
+                                    </li>
                                     <li class="nav-item">
                                         <input type="hidden" class="form-control" id="token" name="_token"
                                             value="{{ csrf_token() }}">
@@ -30,7 +39,7 @@
                                     @if (isset($currentUser))
                                         <a href="" class="fs-6 text-decoration-none dropdown-toggle"
                                             style="color:black; font-weight: 500;" data-bs-toggle="dropdown">
-                                            <span style="color:#cb1c3b">
+                                            <span class="mr-2" style="color:#cb1c3b">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                                                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
@@ -144,15 +153,15 @@
                 </section>
 
             </div>
-            <div class="sidebar col-md-3 px-0 d-none d-sm-block mt-2">
+            <div class="sidebar col-md-3 px-0 d-none d-sm-block py-3">
                 <div class="tittle-main d-flex justify-content-center">
-                    <p>------ Giỏ hàng ------ </p>
+                    <p>🍦 Giỏ hàng của bạn 🍦</p>
                 </div>
 
-                <div class="products px-3 ">
+                <div class="products px-3">
                     @if (!Cart::content()->isEmpty())
-                        <div class="row accordion"
-                            style="height:40px; display:flex; flex-wrap: nowrap; flex-direction: column; height: 350px; overflow-y: auto;">
+                        <div class="row accordion py-2 pl-2"
+                            style="height:70vh; display:flex; flex-wrap: nowrap; flex-direction: column; overflow-y: scroll;">
                             @foreach ($content as $v_content)
                                 <div class="cart d-flex mt-3" data-rowid="{{ $v_content->rowId }}">
                                     <div class="col-1" data-bs-toggle="collapse"
@@ -235,15 +244,15 @@
                         </div>
                     @else
                         <div class="products-show-noti text-center">
-                            <i class="bi bi-check2-circle" style="margin-right:5px;color:red"></i>
-                            <p style="color:red">Không có sản phẩm nào trong giỏ hàng</p>
+                            <i class="bi bi-check2-circle" style="margin-right:5px;color:red;margin-top: 10px"></i>
+                            <p style="color:red;margin-top: 10px">Không có sản phẩm nào trong giỏ hàng</p>
                         </div>
                     @endif
                 </div>
 
 
                 <section class="money" style="z-index:100;background-color: white;">
-                    <div class="total-money" style="background-color: #F5F7F9; padding-top: 15px;">
+                    <div class="total-money" style="background-color: #F5F7F9; padding-top: 15px; padding-bottom: 2px">
                         <div class="container-fluid mb-3">
                             <div class="voucher row">
                                 <div class="voucher-x col-8"><input type="text" class="form-control" id="voucher"
@@ -265,7 +274,7 @@
                             ?>
                             <p> <span>Tổng</span> <span id="totalPrice">@currency($total)</span> </p>
                             <p>
-                                <span class="w-50">Giảm T.Viên</span>
+                                <span class="w-50">Giảm giá thành viên</span>
                                 <a tyle="button" data-bs-toggle="modal" data-bs-target="#thanhvienModal"><svg
                                         xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
@@ -276,7 +285,7 @@
                                 <span>@currency($thanhvien)</span>
                             </p>
                             <p>
-                                <span class="w-50">Giảm K.Mại</span>
+                                <span class="w-50">Khuyến mại</span>
                                 <a type="button" data-bs-toggle="modal" data-bs-target="#khuyenmaiModal"><svg
                                         xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
@@ -290,7 +299,7 @@
                         </div>
 
                     </div>
-                    <div class="container-fluid">
+                    <div class="container-fluid mt-3">
                         <a type="button" class="thanhtoantotal btn btn-success" href="{{ route('thanhtoan') }}"
                             style="width:100%;display:flex;justify-content: space-between; font-size: 15px;">
                             <span>THANH TOÁN</span>
@@ -304,7 +313,7 @@
     <script>
         const products = @json($products);
         console.log(products);
-        
+
         function showProduct(category_id) {
             if (category_id == 0) {
                 $('.products-option').show();

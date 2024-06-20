@@ -117,3 +117,17 @@ Route::get('/lien_he', function () {
 Route::get('/gioi_thieu', function () {
     return view('pages.intro');
 })->name('gioi_thieu');
+
+Route::get('/forgot-password', function() {
+    return view('forgotpwd.index');
+})->name('forgot-password');
+
+Route::get('/reset-password', function() {
+    return view('forgotpwd.reset');
+})->name('reset-password');
+
+Route::post('/rst-pwd', [UserController::class, 'resetPassword'])->name('rst-pwd');
+Route::get('/forgotpwd-otp-expiry-time', [UserController::class, 'getOtpExpiryTime']);
+Route::post('/forgotpwd-verify-otp', [UserController::class, 'verifyOtp'])->name('forgotpwd-verify-otp');
+Route::get('/forgotpwd-verify-mail', [UserController::class, 'VerifyMail'])->name('forgotpwd-verify-mail');
+Route::post('/change-password', [UserController::class, 'changePassword'])->name('change-password');

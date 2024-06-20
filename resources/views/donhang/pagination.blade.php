@@ -1,6 +1,6 @@
 <input type="hidden" name="_currentPage" id="_currentPage" value="{{ $paginator->currentPage() }}">
 <div class="col-sm-3" style="margin-top: -5px">
-    <div class="dataTables_info" style="margin-top: 5px;"><span class="page-link">Danh sách có
+    <div class="dataTables_info" style="margin-top: 5px;"><span class="page-link">Danh sách đang hiển thị
             {{ $paginator->count() }} / {{ $paginator->total() }} đơn hàng</span></div>
 </div>
 <div class="col-sm-6" style="display: flex; justify-content: center;">
@@ -47,8 +47,8 @@
     </div>
 </div>
 <div class="col-sm-3" style="padding-bottom: 5px;">
-    <div class="left_paginate" style="display:flex; align-items: center">
-        <div class="col-sm-6">
+    <div class="left_paginate" style="display:flex; align-items: center;">
+        <div class="col-sm-6" style="display:flex; align-items: center; justify-content: end; padding-right: 15px">
             <span class="page-link">Hiển thị</span>
         </div>
         <div class="col-sm-6">
