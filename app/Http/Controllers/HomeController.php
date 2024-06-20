@@ -22,11 +22,11 @@ class HomeController extends Controller
         $restaurant = Cache::rememberForever('restaurant', function () {
             return Restaurant::all();
         });
-        $banner = Cache::rememberForever('banner', function () {
-            return BannerHome::all();
-        });
+//        $banner = Cache::rememberForever('banner', function () {
+//            return BannerHome::all();
+//        });
         // $restaurantId = Restaurant::find($restaurant_id);
-        $data['banner'] = $banner;
+//        $data['banner'] = $banner;
         $data['restaurant'] = $restaurant;
         // $data['restaurantId'] = $restaurantId;
         return view('pages.home.index', $data);
