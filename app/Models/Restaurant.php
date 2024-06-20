@@ -12,7 +12,7 @@ class Restaurant extends Model
     protected $table = 'restaurant';
 
     protected $primaryKey = 'restaurant_id';
-
+    public $timestamps = false;
     protected $fillable = [
         'restaurant_id',
         'restaurant_name',
@@ -23,4 +23,8 @@ class Restaurant extends Model
         'restaurant_image',
         'tgroup_id',
     ];
+    public function user()
+    {
+        return $this->belongsTo('App\Models\UserMixue', 'user_id', 'user_id');
+    }
 }

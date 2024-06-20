@@ -66,4 +66,14 @@ class Orders extends Model
     {
         return $this->belongsTo(OrderDetail::class, 'order_id');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($order) {
+            // Xóa tất cả các chi tiết đơn hàng liên quan trước khi xóa đơn hàng
+            $order->orderDetails()->delete();
+        });
+    }
 }
