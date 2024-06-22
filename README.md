@@ -1,66 +1,73 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🍦 Website bán đồ uống giải khát Mixue Việt Nam
+Bài tập lớn: Lập trình Web với PHP và MySQL (Học kì 2 - Năm 3 - Học viện Ngân hàng)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Mục lục
+* [Thông tin cơ bản](#thông-tin-cơ-bản)
+* [Techstack](#techstack)
+* [Yêu cầu](#yêu-cầu)
+* [Hướng dẫn sử dụng](#hướng-dẫn-sử-dụng)
 
-## About Laravel
+## Thông tin cơ bản
+Bố cục của website bán đồ uống giải khát Mixue Việt Nam bao gồm
+- Trang chủ của website, nơi hiển thị danh sách cửa hàng khả dụng
+- Trang đặt hàng bao gồm danh sách sản phẩm cùng giá thành và thông tin chi tiết của một cửa hàng cụ thể, cùng với giỏ hàng của người dùng
+- Trang thanh toán bao gồm một thẻ thông tin đơn hàng để người dùng xác nhận và lựa chọn thời gian giao hàng; và một thẻ thông tin chi phí đơn hàng gồm có tổng tiền (tổng tiền hàng - giảm giá thành viên - voucher khuyến mại + phí vận chuyển) và lựa chọn phương thức thanh toán (Cash on Delivery - COD hoặc thanh toán trực tuyến thông qua cổng thông tin thanh toán [VNPAY](https://vnpay.vn/))
+- Trang lịch sử đơn hàng, nơi người dùng có thể tra cứu tình trạng đơn hàng hiện tại đồng thời được cấp quyền tìm kiếm, truy cập lịch sử đơn hàng của bản thân
+- Trang quản trị (administrator) CRUD, quản lý các thông tin liên quan tới cửa hàng, nhân viên, sản phẩm, hóa đơn, tài khoản hay báo cáo thu chi của cửa hàng theo từng khoảng thời gian
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Chức năng của website bán đồ uống giải khát Mixue Việt Nam bao gồm
+- Đăng ký, đăng nhập, đăng xuất: bao gồm hash mật khẩu người dùng (sử dụng thuật toán *Bcrypt* và *Argon2*), khi đăng ký có xác thực captcha sử dụng [Cloudflare Turnstile](https://www.cloudflare.com/vi-vn/products/turnstile/)
+- Gửi email tới người dùng liên quan tới các vấn đề như mã OTP xác thực tài khoản, mã OTP reset mật khẩu, xác nhận tình trạng đơn hàng
+- Lựa chọn cửa hàng mong muốn, sau đó lựa chọn các sản phẩm muốn mua và tùy ý tăng giảm số lượng, thay đổi các option đường - đá hoặc xóa sản phẩm khỏi giỏ hàng
+- Tích hợp thanh toán trực tuyến thông qua cổng thông tin thanh toán [VNPAY](https://vnpay.vn/)
+- Tự động tính toán phí vận chuyển dựa theo khoảng cách từ cửa hàng tới địa chỉ nhận hàng sử dụng API của [Google Maps Platform](https://mapsplatform.google.com/)
+- Tạo liên kết webhook với [API của Telegram](https://core.telegram.org/bots/api), gửi thông tin đơn hàng vào group Telegram cụ thể (được xác định bởi telegram-group-id), từ đó nhân viên trong cửa hàng có thể nhận đơn hoặc hủy đơn tùy theo tình trạng hiện tại của cửa hàng, tự động cập nhật trạng thái đơn hàng vào database khi có nhân viên nhận/ hủy đơn hàng
+- CRUD đối với các thông tin liên quan tới cửa hàng, nhân viên, sản phẩm, hóa đơn, tài khoản, có tính năng thống kê và xuất báo cáo thu chi của cửa hàng theo từng khoảng thời gian
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Disclaimer: Dự án này không phải là original content của nhóm mà chỉ là phiên bản chỉnh sửa của source đã có sẵn. Cảm ơn tới tác giả của project là [Nguyễn Hoài Nam](https://github.com/unclecatvn)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Nhóm tác giả**
+- [Nguyễn Hoàng Tâm](https://github.com/nghtamm2003)
+- [Nguyễn Huy Phước](https://github.com/DurkYerunz)
+- [Lương Ngọc Tuấn](https://github.com/TuanChill)
+	
+## Techstack
+- HTML + CSS
+- Ngôn ngữ lập trình PHP + Javascript
+- Laravel
+- NodeJS và Vite ([laravel/vite-plugin](https://github.com/laravel/vite-plugin))
+- Bootstrap
+- Docker
+- MySQL sử dụng Navicat Premium
+- Amazon Web Services (AWS)
+	
+## Yêu cầu
+- Cài đặt [NodeJS](https://nodejs.org/en/download)
+- Cài đặt [PHP](https://www.php.net/downloads.php) và [Composer](https://getcomposer.org/download/)
 
-## Learning Laravel
+## Hướng dẫn sử dụng
+*(Chỉ dành cho nhà phát triển)* Cài đặt plugin Vite
+```
+npm install
+```
+Cài đặt các package (service) của các vendor (provider)
+```
+composer install
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+// Khuyến cáo sử dụng WSL hoặc distro Linux để tránh xảy ra lỗi, nếu vẫn muốn tiếp tục cài đặt trên Windows
+composer install --ignore-platform-reqs
+```
+Khởi chạy dự án
+```
+// Chạy migrations
+php artisan migrate
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+// Bật server (trên local) và khởi chạy dự án Laravel
+php artisan serve
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+// (Chỉ dành cho nhà phát triển) Bật Laravel Horizon để theo dõi queue
+php artisan horizon
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+// Khởi tạo queue và đưa vào hoạt động
+php artisan queue:work
+```
