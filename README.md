@@ -27,7 +27,7 @@ Chức năng của website bán đồ uống giải khát Mixue Việt Nam bao g
 ### Disclaimer: Dự án này không phải là original content của nhóm mà chỉ là phiên bản chỉnh sửa của source đã có sẵn. Cảm ơn tới tác giả của project là [Nguyễn Hoài Nam](https://github.com/unclecatvn)
 
 **Nhóm tác giả**
-- [Nguyễn Hoàng Tâm](https://github.com/nghtamm2003)
+- [Nguyễn Hoàng Tâm](https://github.com/nghtamm)
 - [Nguyễn Huy Phước](https://github.com/DurkYerunz)
 - [Lương Ngọc Tuấn](https://github.com/TuanChill)
 	
